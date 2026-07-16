@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools==83.0.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "data-quality-checks"
+version = "1.0.0"
+description = "Deterministic structural and row-level data quality gate with quarantine"
+requires-python = ">=3.12,<3.13"
+license = "MIT"
+dependencies = [
+  "pandera[polars]==0.32.1",
+  "polars==1.42.1",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest==9.1.1",
+  "pytest-cov==7.1.0",
+  "ruff==0.15.20",
+]
+
+[project.scripts]
+data-quality-checks = "data_quality.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 96
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "RUF"]
+
+[tool.pytest.ini_options]
+addopts = "-ra"
+testpaths = ["tests"]

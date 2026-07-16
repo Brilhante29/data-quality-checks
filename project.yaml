@@ -1,0 +1,147 @@
+id: 26
+name: data-quality-checks
+program:
+  id: mlops-data-platform
+  narrative_fit: "Protects the input side of #21 by failing corrupted batches closed and partitioning readable rows into accepted and reason-coded quarantine artifacts before training or analytics."
+  shared_assets:
+    - deterministic labeled defect fixture
+    - framework-independent row policy
+    - Python reference quality engine
+    - Pandera and Polars optimized engine
+    - accepted and quarantine artifact protocol
+    - invalid-row benchmark evidence
+status: implemented
+claim: "One local-first Docker command applies a strict structural contract, quarantines rule violations with exact reason IDs, proves Polars/Pandera parity against a Python oracle, and scores invalid-row detection F1, rejected percentage, and full-gate throughput."
+stack:
+  - python-3.12
+  - pandera-0.32.1
+  - polars-1.42.1
+  - docker
+language_profile:
+  primary: python
+  secondary: []
+  reason: "Python provides a framework-independent rule oracle plus Pandera structural contracts and Polars vectorized execution without requiring a service, database, or distributed data platform."
+decision_brain:
+  agentic_spec:
+    source: .portfolio/decision-brain/agentic-spec-governance.yaml
+    spec_store: portfolio-reuse-kit
+    schema: portfolio-system
+    project_config: openspec/config.yaml
+    component_pack: mlops-data-platform
+    artifact_graph:
+      - intent->portfolio-impact->architecture-record
+      - architecture-record+portfolio-impact->component-pack
+      - component-pack->reuse-delta->benchmark-proof->tasks->verification
+  agent_graph:
+    mode: principal-agent-orchestrated
+    source: .portfolio/decision-brain/agent-graph.yaml
+    handoff: sdd/agent-handoff.md
+    local_first_runtime: docker
+  reuse_improvement_loop:
+    source: .portfolio/decision-brain/reuse-improvement-loop.yaml
+    review_path: sdd/reuse-improvement-review.md
+    current_status: patched-awaiting-runtime-validation
+  principles:
+    coupling_rule: "Canonical rule IDs, thresholds, truth scoring, and the application port import no Pandera, Polars, DuckDB, Great Expectations, database, broker, cloud SDK, transport, or UI code."
+    solid: [srp, ocp, lsp, isp, dip]
+    simplicity_rule: "Use one structural schema, seven explicit rules, accepted/quarantine outputs, one reference engine, and one optimized engine; exclude platforms and services that do not improve the proof."
+    testability_rule: "Rules and scoring run with standard-library values, the reference engine runs without DataFrame libraries, and Docker verifies exact parity with the optimized adapter."
+    rejected_overengineering:
+      - Great Expectations project and data docs
+      - DuckDB storage or SQL layer
+      - Spark or distributed compute
+      - FastAPI or GraphQL
+      - Airflow or MLflow duplication
+      - Kafka or RabbitMQ
+      - cloud data-quality platform
+      - automatic remediation
+  stack_profile: python-ml
+  api_style: cli
+  messaging: none
+  cloud:
+    mode: none
+    local_provider: none
+    real_provider_target: none
+    emulated_services: []
+    adapter_rule: "No cloud behavior exists in the measured path; if S3 ingestion enters later, place it behind the input port and verify AWS behavior with Kumo first."
+    config_switch: not-applicable
+    unsupported_behaviors:
+      - managed data-quality control plane
+      - cloud object storage
+      - hosted data documentation
+  database: none
+  runtime: "Single non-root Python 3.12.13 container pinned by OCI digest; eager local DataFrame validation and deterministic CPU benchmark."
+  library_policy: "Pandera owns exact structural DataFrame validation, Polars owns vectorized row predicates and output partitioning, and the standard-library reference engine is the LSP oracle. DuckDB and Great Expectations are rejected because SQL persistence and suite operations are not measured."
+  record_path: sdd/technical-decision.md
+  rejected_options:
+    - option: DuckDB
+      reason: "No SQL joins, analytics, or persistence are part of the claim; Polars can read, validate, partition, and write the measured batch directly."
+    - option: Great Expectations
+      reason: "Data docs, checkpoints, stores, and team suite workflows would increase surface area without improving labeled row-detection proof."
+    - option: Pandera-only row quarantine
+      reason: "Framework exceptions are useful for schema failure but do not define the portfolio's accepted/quarantine artifacts or independent reason-scoring contract."
+    - option: FastAPI or GraphQL
+      reason: "The product consumes and partitions files; remote query semantics are absent."
+architecture:
+  style: pipeline
+  reason: "The dominant force is ordered gating: load, validate structure, evaluate row policy, partition outputs, score against independent truth, and emit benchmark evidence."
+  problem_forces:
+    domain_complexity: medium
+    integration_pressure: medium
+    ui_state_complexity: none
+    data_or_ml_reproducibility: high
+    auditability: high
+    throughput_or_async: medium
+    independent_deployability: low
+  dependency_rule: "Pandera/Polars and CSV adapters depend on domain rule IDs, outcomes, and the QualityEngine port; domain and application policy never depend on DataFrame frameworks."
+  boundaries:
+    - deterministic fixture and injected truth
+    - immutable order record and row policy
+    - quality engine application port
+    - standard-library reference engine
+    - Pandera structural schema
+    - Polars vectorized rule and partition adapter
+    - benchmark scoring and CLI
+  rejected_alternatives:
+    - style: layered-mvc
+      reason: "No controller or repository dominates; generic layers would hide the gate transitions."
+    - style: hexagonal-as-primary
+      reason: "Engine substitution is useful, but ordered data transformations remain the dominant system shape."
+    - style: event-driven
+      reason: "No stream, window, delivery guarantee, or asynchronous throughput is required."
+design_system:
+  tokens: .portfolio/design-system/tokens.yaml
+  readme_components:
+    - readme_header
+    - benchmark_card
+    - architecture_card
+    - references_table
+  diagram_required: true
+reuse:
+  kit_version: data-quality-update-pending-publication
+  uses:
+    - catalog
+    - programs
+    - component-packs
+    - openspec-schema
+    - decision-brain
+    - agent-graph
+    - reuse-improvement-loop
+    - architecture-selector
+    - python-language-profile
+    - python-data-quality
+    - benchmark-contract
+    - design-system
+    - sdd
+    - skills
+benchmark:
+  primary_metric: invalid_row_detection_f1
+  unit: ratio
+  command: "docker run --rm data-quality-checks"
+  result_path: benchmarks/results/summary.json
+  evidence_status: pending
+release:
+  docker: "docker run --rm data-quality-checks"
+  no_secret_default_path: true
+  readme_has_number: true
+  references_documented: true

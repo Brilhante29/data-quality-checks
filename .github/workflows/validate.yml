@@ -1,0 +1,44 @@
+name: validate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate repository contract
+        shell: pwsh
+        run: ./tools/validate-project.ps1 -SkipDocker -AllowPendingEvidence
+
+      - name: Build image
+        run: docker build -t data-quality-checks .
+
+      - name: Lint
+        run: docker run --rm --entrypoint python data-quality-checks -m ruff check src tests
+
+      - name: Test adapters, parity, and coverage
+        run: docker run --rm --entrypoint python data-quality-checks -m pytest --cov=data_quality --cov-report=term-missing --cov-fail-under=90
+
+      - name: Run short container benchmark
+        run: |
+          mkdir -p benchmarks/results
+          docker run --rm --user "$(id -u):$(id -g)"             -v "${{ github.workspace }}/benchmarks/results:/app/benchmarks/results"             data-quality-checks benchmark --rows 1000             --output /app/benchmarks/results/ci.json
+
+      - name: Validate benchmark JSON
+        run: python -m json.tool benchmarks/results/ci.json > /dev/null
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: data-quality-checks-ci-benchmark
+          path: benchmarks/results/ci.json
+          if-no-files-found: error

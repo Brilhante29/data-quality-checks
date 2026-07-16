@@ -2,33 +2,28 @@ schema: portfolio-system
 references:
   - portfolio-reuse-kit
 context: |
-  Project: data-quality-checks (#unknown)
+  Project: data-quality-checks (#26)
+  Program: mlops-data-platform
+  Claim: partition structurally trusted rows into accepted and reason-coded quarantine outputs, then score detection against independent truth.
+  Downstream role: mlops-end2end (#21) consumes only validated data.
   Source of truth:
-    - Use `.portfolio/` as the local snapshot of portfolio-reuse-kit.
-    - Use `project.yaml` for the public project contract.
-    - Use `sdd/` for lightweight artifacts that must exist even without OpenSpec installed.
-  Core rules:
-    - Prove one measurable claim.
-    - Select one component pack from `.portfolio/component-packs/manifest.yaml`.
-    - Record architecture, stack, API, messaging, cloud, database/runtime, and library choices with rejected alternatives.
-    - Keep domain/use-case code independent from framework, database, broker, cloud SDK, transport, and UI.
-    - Prefer local-first execution; use Kumo for AWS-like behavior and adapters for real cloud.
-    - Resolve reuse improvements as patch-now, backlog, or reject.
+    - Use .portfolio/ as the synchronized reuse-kit snapshot.
+    - Use project.yaml for the public project contract.
+    - Use sdd/ for accepted decisions and release gates.
+    - Use openspec/changes/ship-data-quality-checks for the active change.
 rules:
-  reference-reuse:
-    - Prioritize local skills and `.portfolio/`; use external repositories only as attributed references unless a decision record explicitly accepts deeper reuse.
   intent:
-    - Keep the claim measurable and README-ready.
+    - Measure invalid-row detection quality, not only fixture rejection prevalence.
   portfolio-impact:
-    - Explain how this repo strengthens a macro project, not just itself.
+    - Protect downstream training/analytics through artifacts and evidence, not source imports.
   architecture-record:
-    - Include SOLID, LSP, KISS, YAGNI, dependency inversion, and testability evidence.
+    - Challenge framework-owned policy, duplicated optimized semantics, and unnecessary platform components.
   component-pack:
-    - Select from `.portfolio/component-packs/manifest.yaml`.
-    - Do not install external tools without explicit approval.
+    - Use mlops-data-platform, python-data-quality, and benchmark-harness guidance.
   reuse-delta:
-    - Record whether the kit improved because of this project.
+    - Patch structural/quarantine/parity guidance into the kit; keep order rules and fixture local.
   benchmark-proof:
-    - Include metric, unit, command, fixture, JSON path, and README result.
+    - Preserve injected truth, multi-rule rows, input/output hashes, confusion, F1, rejected percentage, exact reasons, throughput, image, and failures.
+    - Aggregate at least three same-image, same-signature runs with the shared harness.
   verification:
-    - Verify Docker, tests, benchmark JSON, README, references, reuse review, and validation.
+    - Verify structural fail-closed behavior, output accounting, oracle/Polars parity, Docker, no skipped adapter tests, raw JSON, summary, and CI.

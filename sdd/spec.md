@@ -6,58 +6,53 @@
 
 ## Claim
 
-Este projeto prova que: validacao objetiva de dados.
+One local-first Docker command validates a strict order-batch structure, quarantines row-rule violations with reason IDs, proves optimized/reference parity, and measures invalid-row detection F1 plus full-gate throughput.
 
-## Stack
+## Problem
 
-python, pandera, duckdb, polars, docker
+A rejected-row percentage can be made impressive by changing the fixture. The portfolio needs a quality gate whose truth exists before validation, whose false positives are measurable, and whose accepted/quarantine outputs account for every readable row.
 
-## User-visible output
+## Input Contract
 
-- Docker command: pending
-- README opens with: # #26 data-quality-checks
-- Benchmark table: rejected_rows_percent
+Exact ordered columns:
 
-## Scope
+`row_id, order_id, customer_id, quantity, unit_price, total_amount, currency, status`.
 
-In:
+Unreadable structure, scalar types, or duplicate row identifiers fail the batch. Row policy checks identifiers, customer, quantity, unit price, currency, status, and amount consistency.
 
-- Implementar o menor produto funcional que prove o claim.
-- Rodar por Docker.
-- Gerar benchmark JSON reproduzivel.
+## Outputs
 
-Out:
+- Accepted CSV with unchanged source columns.
+- Quarantine CSV with source columns plus ordered `_reasons`.
+- Benchmark JSON with confusion counts, F1, rejected percentage, reason exact match, throughput, hashes, versions, environment, and failures.
+- Nonzero failure JSON for exceptions.
 
-- Publicar repo antes do primeiro resultado numerico.
-- Depender de segredo pago para o caminho default.
+## Fixture Truth
 
-## Architecture
+Seed 42 creates deterministic valid orders and injects one invalid row every 20 rows across five defect families. Truth records input SHA-256, invalid row IDs, and all expected reasons before validation.
 
-`	xt
-client -> app -> domain -> adapters -> benchmark output
-`
+## In Scope
 
-## Benchmark
+- Eager local CSV validation.
+- Batch-fatal structural contract.
+- Quarantinable row rules.
+- Reference/optimized engine parity.
+- Accepted and quarantine artifacts.
+- Reproducible 100,000-row benchmark.
 
-Primary metric:
+## Out Of Scope
 
-- name: rejected_rows_percent
-- target: first reproducible baseline
-- command: pending
-- result file: enchmarks/results/*.json
+- Data docs or hosted suite operations.
+- SQL analytics or persistent storage.
+- Distributed Spark execution.
+- Streaming/windowing.
+- Airflow, MLflow, API servers, brokers, cloud, dashboards, and remediation.
 
-## Dataset or fixture
+## Acceptance
 
-- source: pending
-- size: pending
-- license: pending
-- deterministic seed: 42
-
-## Definition of done
-
-- [ ] Docker command works from clean clone.
-- [ ] README starts with project number and benchmark result.
-- [ ] Benchmark command writes JSON result.
-- [ ] Tests cover core behavior.
-- [ ] REFERENCES.md explains reuse.
-- [ ] No secret or paid credential required for default demo.
+- Every readable row is accepted or quarantined exactly once.
+- Reason IDs are bounded, ordered, and machine-readable.
+- Optimized and reference engines return identical outcomes.
+- Benchmark scores all injected row/reason truth.
+- Default Docker path is non-root, offline, and secret-free.
+- README uses only current committed Docker evidence.

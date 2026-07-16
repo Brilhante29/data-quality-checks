@@ -1,41 +1,31 @@
 # Benchmark Plan: data-quality-checks
 
-## Hypothesis
+## Primary
 
-validacao objetiva de dados, measured by rejected_rows_percent.
+- Metric: `invalid_row_detection_f1`
+- Unit: ratio
+- Command: `docker run --rm data-quality-checks`
+- Result: `benchmarks/results/summary.json`
+- Evidence: pending immutable Docker runs
 
-## Command
+## Secondary
 
-`ash
-pending
-`
+Precision, recall, confusion counts, rejected rows percent, exact reason match, end-to-end rows/second, duration, rule counts, and artifact SHA-256 values.
 
-## Environment
+## Protocol
 
-- OS: pending
-- CPU: pending
-- RAM: pending
-- GPU: pending
-- Docker version: pending
-- Date: pending
+- 100,000 measured rows, seed 42.
+- Exactly one injected row every 20 rows.
+- Five injected families; quantity rows intentionally carry two reasons.
+- One 1,000-row full warm-up.
+- Timed path includes read, schema, rules, partition, and writes.
+- Three complete runs on one image; publish median/range and preserve failures.
+- Docker parity test compares all 1,000 oracle/optimized outcomes before benchmark.
 
-## Inputs
+## Why F1
 
-- fixture: pending
-- dataset size: pending
-- repetitions: pending
-- warmup: pending
+The 5% rejected ratio is fixture prevalence. F1 proves the gate found injected defects without quarantining valid rows. Exact reason match proves it found the right causes, including multi-rule rows.
 
-## Metrics
+## Gates
 
-| Metric | Unit | Source | Why it matters |
-|---|---:|---|---|
-| rejected_rows_percent | pending | benchmark script | proves the repo claim |
-
-## Result schema
-
-Output must be JSON and include project, metric, alue, unit, 	imestamp, environment, and command.
-
-## Post angle
-
-#26 data-quality-checks: rejected_rows_percent as a reproducible portfolio benchmark.
+No missing truth, duplicate row IDs, unaccounted rows, changed fixture hash, parity mismatch, hidden failure, unrecorded image ID, or README number without current summary.
