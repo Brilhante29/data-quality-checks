@@ -11,10 +11,10 @@ from pathlib import Path
 from data_quality.domain import (
     CURRENCY_ALLOWED,
     CUSTOMER_REQUIRED,
+    EXPECTED_COLUMNS,
+    QUANTITY_RANGE,
     STATUS_ALLOWED,
     TOTAL_CONSISTENT,
-    QUANTITY_RANGE,
-    EXPECTED_COLUMNS,
 )
 
 

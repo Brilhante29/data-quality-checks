@@ -5,7 +5,7 @@ import json
 import os
 import platform
 import tempfile
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 from time import perf_counter
 from typing import Any
@@ -61,7 +61,7 @@ def run_benchmark(
             "metric": "invalid_row_detection_f1",
             "value": metrics.f1,
             "unit": "ratio",
-            "timestamp": datetime.now(timezone.utc)
+            "timestamp": datetime.now(UTC)
             .isoformat()
             .replace("+00:00", "Z"),
             "command": command,

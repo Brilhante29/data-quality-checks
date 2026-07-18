@@ -7,7 +7,7 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 
 WORKDIR /app
 
-COPY pyproject.toml README.md LICENSE ./
+COPY pyproject.toml LICENSE ./
 COPY src ./src
 RUN python -m pip install --no-cache-dir ".[dev]" \
     && useradd --create-home --uid 10001 appuser \

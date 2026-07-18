@@ -1,10 +1,9 @@
 from __future__ import annotations
 
+from collections.abc import Mapping
 from dataclasses import dataclass
 from decimal import Decimal, InvalidOperation
 from types import MappingProxyType
-from typing import Mapping
-
 
 EXPECTED_COLUMNS = (
     "row_id",

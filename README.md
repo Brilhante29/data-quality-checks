@@ -1,14 +1,14 @@
 # #26 data-quality-checks
 
-**Benchmark:** `invalid_row_detection_f1` is pending the immutable Docker run; host oracle tests are development feedback, not publication evidence.
+**Benchmark:** `invalid_row_detection_f1` is `1.0000` across three immutable Docker runs; host oracle tests are development feedback, not publication evidence.
 
 **Proves:** a data gate can fail structural corruption closed, quarantine readable rule violations without losing rows, match an independent reference engine, and measure detection quality rather than merely report how dirty its fixture is.
 
 ## Run
 
 ```bash
-docker build -t data-quality-checks .
-docker run --rm data-quality-checks
+docker build -t data-quality-checks:benchmark .
+docker run --rm data-quality-checks:benchmark
 ```
 
 The default path needs no network, secret, database, broker, cloud account, or paid service at runtime.
@@ -17,12 +17,31 @@ The default path needs no network, secret, database, broker, cloud account, or p
 
 | Metric | Value | Unit | Meaning |
 |---|---:|---|---|
-| Invalid-row F1 | pending | ratio | precision/recall balance against injected truth |
-| Rejected rows | pending | percent | operational quarantine share |
-| Exact reason match | pending | ratio | rejected rows with every expected reason |
-| Full-gate throughput | pending | rows/s | read, schema, rules, and both output writes |
+| Invalid-row F1 | 1.0000 | ratio | precision/recall balance against injected truth |
+| Rejected rows | 5.00 | percent | operational quarantine share |
+| Exact reason match | 1.0000 | ratio | rejected rows with every expected reason |
+| Full-gate throughput | 360,303.53 | rows/s | median across three runs |
+| Throughput range | 351,839.30-407,935.11 | rows/s | minimum-maximum across three runs |
 
-Publication requires three complete 100,000-row runs on one pinned image, all raw outputs/failures, median and range, image ID, and current committed evidence.
+Evidence contains three complete 100,000-row runs on one pinned image, all raw outputs, median and range, image ID, and current committed evidence.
+
+### Reproduce The Published Evidence
+
+On PowerShell, after building the image, run the same command three times with N set to 1, 2, and 3, then aggregate the raw outputs:
+
+```powershell
+$imageId = docker image inspect data-quality-checks:benchmark --format '{{.Id}}'
+$resultDir = (Get-Location).Path + '\benchmarks\results'
+1..3 | ForEach-Object {
+  docker run --rm -e "IMAGE_ID=$imageId" --mount "type=bind,source=$resultDir,target=/app/benchmarks/results" data-quality-checks:benchmark benchmark --rows 100000 --output "/app/benchmarks/results/run-$_.json"
+}
+.\tools\aggregate-benchmark.ps1
+```
+
+The committed aggregate is benchmarks/results/summary.json; the three raw outputs are run-1.json, run-2.json, and run-3.json.
+
+Image ID: sha256:eae434750a1ae276f8cf17ccf1806c7c8f44c51218e5f9437625ebc0c3017127.
+Fixture SHA-256: b19cc048d45ab0db862c0274fda33935d1207043072fa0edd1e1ada691716609.
 
 ## Contract And Policy
 
@@ -103,7 +122,7 @@ DuckDB is excellent when SQL, joins, or persistent analytics are the problem; no
 - Rules, fixture truth, reference behavior, optimized parity, scoring, and output protection have focused tests.
 - Docker uses a non-root user and a Python base pinned by tag and OCI digest.
 - OpenSpec records architecture self-challenge, stack rejection, reuse delta, benchmark questions, and release gates.
-- Evidence remains `pending` until the exact container is frozen and repeated.
+- Evidence is current for the pinned image and the three completed runs; performance is a local baseline, not a cross-machine guarantee.
 
 ## References
 

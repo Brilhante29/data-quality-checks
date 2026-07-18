@@ -10,7 +10,7 @@ program:
     - Pandera and Polars optimized engine
     - accepted and quarantine artifact protocol
     - invalid-row benchmark evidence
-status: implemented
+status: benchmarked
 claim: "One local-first Docker command applies a strict structural contract, quarantines rule violations with exact reason IDs, proves Polars/Pandera parity against a Python oracle, and scores invalid-row detection F1, rejected percentage, and full-gate throughput."
 stack:
   - python-3.12
@@ -40,7 +40,7 @@ decision_brain:
   reuse_improvement_loop:
     source: .portfolio/decision-brain/reuse-improvement-loop.yaml
     review_path: sdd/reuse-improvement-review.md
-    current_status: patched-awaiting-runtime-validation
+    current_status: runtime-validated
   principles:
     coupling_rule: "Canonical rule IDs, thresholds, truth scoring, and the application port import no Pandera, Polars, DuckDB, Great Expectations, database, broker, cloud SDK, transport, or UI code."
     solid: [srp, ocp, lsp, isp, dip]
@@ -137,9 +137,9 @@ reuse:
 benchmark:
   primary_metric: invalid_row_detection_f1
   unit: ratio
-  command: "docker run --rm data-quality-checks"
+  command: "docker run --rm data-quality-checks:benchmark benchmark --rows 100000"
   result_path: benchmarks/results/summary.json
-  evidence_status: pending
+  evidence_status: current
 release:
   docker: "docker run --rm data-quality-checks"
   no_secret_default_path: true

@@ -1,0 +1,73 @@
+{
+  "command": "docker run --rm data-quality-checks",
+  "environment": {
+    "container": true,
+    "image_id": "sha256:1d501268c8f547688a446973435338e77a49d11563146dcc7cca57e99013ef69",
+    "implementation": "CPython",
+    "machine": "x86_64",
+    "pandera": "0.32.1",
+    "platform": "Linux-5.15.167.4-microsoft-standard-WSL2-x86_64-with-glibc2.41",
+    "polars": "1.42.1",
+    "python": "3.12.13",
+    "rows": 100000
+  },
+  "failures": 0,
+  "metric": "invalid_row_detection_f1",
+  "metrics": {
+    "duration_seconds": 0.401944037002977,
+    "f1": 1.0,
+    "false_negative": 0,
+    "false_positive": 0,
+    "precision": 1.0,
+    "reason_counts": {
+      "currency_allowed": 1000,
+      "customer_required": 1000,
+      "quantity_range": 1000,
+      "status_allowed": 1000,
+      "total_consistent": 2000
+    },
+    "reason_exact_match_rate": 1.0,
+    "recall": 1.0,
+    "rejected_rows_percent": 5.0,
+    "throughput_rows_per_second": 248790.85343728922,
+    "true_negative": 95000,
+    "true_positive": 5000
+  },
+  "project": "data-quality-checks",
+  "proof": {
+    "accepted_rows": 95000,
+    "accepted_sha256": "f1af4ef1b566b2fe2111bff42a188948916dc08537b6783d7c580ed22eaf1ac5",
+    "fixture_rows": 100000,
+    "fixture_seed": 42,
+    "fixture_sha256": "b19cc048d45ab0db862c0274fda33935d1207043072fa0edd1e1ada691716609",
+    "injected_defects": [
+      "customer_required",
+      "quantity_range",
+      "currency_allowed",
+      "total_consistent",
+      "status_allowed"
+    ],
+    "invalid_rows": 5000,
+    "measured_boundary": "read+schema+rules+accepted/quarantine writes",
+    "quarantine_sha256": "958a08bc1bff4fd56a8f9d0ef33ab40a6456e68a0eee324b053e5e48d270bb6f",
+    "quarantined_rows": 5000,
+    "reference_engine": "Python standard-library parity oracle",
+    "row_engine": "Polars vectorized expressions",
+    "structural_contract": "Pandera DataFrameModel",
+    "truth_defined_before_validation": true,
+    "warmup_rows": 1000
+  },
+  "repeat": 1,
+  "summary": {
+    "duration_seconds": 0.401944037002977,
+    "f1": 1.0,
+    "precision": 1.0,
+    "reason_exact_match_rate": 1.0,
+    "recall": 1.0,
+    "rejected_rows_percent": 5.0,
+    "throughput_rows_per_second": 248790.85343728922
+  },
+  "timestamp": "2026-07-16T16:19:19.280573Z",
+  "unit": "ratio",
+  "value": 1.0
+}

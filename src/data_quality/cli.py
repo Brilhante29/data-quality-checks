@@ -4,9 +4,9 @@ import argparse
 import json
 import os
 import sys
-from datetime import datetime, timezone
+from collections.abc import Sequence
+from datetime import UTC, datetime
 from pathlib import Path
-from typing import Sequence
 
 from data_quality.application import execute_gate
 from data_quality.benchmark import run_benchmark
@@ -68,7 +68,7 @@ def main() -> int:
     except Exception as error:
         failure = {
             "project": "data-quality-checks",
-            "timestamp": datetime.now(timezone.utc)
+            "timestamp": datetime.now(UTC)
             .isoformat()
             .replace("+00:00", "Z"),
             "error_type": type(error).__name__,
