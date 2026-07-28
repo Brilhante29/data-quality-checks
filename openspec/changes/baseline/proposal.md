@@ -13,7 +13,7 @@ known portfolio risk.
 
 ## Scope
 
-- In scope: <scope>
+- In scope: Polars and Pandera data quality validation, invalid row quarantine, and local-first benchmark reproducibility.
 - Out of scope: paid credentials, unrelated infrastructure, and unmeasured features.
 
 ## Portfolio Impact
