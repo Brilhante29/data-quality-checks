@@ -2,7 +2,7 @@
   "command": "docker run --rm data-quality-checks",
   "environment": {
     "container": true,
-    "image_id": "sha256:8dfa9feaa462082f8ee28c1e5f0ff43c1a955663c5340c766c4045b48421e1e3",
+    "image_id": "sha256:c7c88eb12716707f65479627fc9a9b55fe60d86fbadd68e0194fb427176f27fc",
     "implementation": "CPython",
     "machine": "x86_64",
     "pandera": "0.32.1",
@@ -14,7 +14,7 @@
   "failures": 0,
   "metric": "invalid_row_detection_f1",
   "metrics": {
-    "duration_seconds": 0.1121279780054465,
+    "duration_seconds": 0.12634517598780803,
     "f1": 1.0,
     "false_negative": 0,
     "false_positive": 0,
@@ -29,7 +29,7 @@
     "reason_exact_match_rate": 1.0,
     "recall": 1.0,
     "rejected_rows_percent": 5.0,
-    "throughput_rows_per_second": 891838.0744825578,
+    "throughput_rows_per_second": 791482.5336081666,
     "true_negative": 95000,
     "true_positive": 5000
   },
@@ -59,15 +59,15 @@
   },
   "repeat": 1,
   "summary": {
-    "duration_seconds": 0.1121279780054465,
+    "duration_seconds": 0.12634517598780803,
     "f1": 1.0,
     "precision": 1.0,
     "reason_exact_match_rate": 1.0,
     "recall": 1.0,
     "rejected_rows_percent": 5.0,
-    "throughput_rows_per_second": 891838.0744825578
+    "throughput_rows_per_second": 791482.5336081666
   },
-  "timestamp": "2026-08-14T05:21:49.073326Z",
+  "timestamp": "2026-08-14T05:26:56.122790Z",
   "unit": "ratio",
   "value": 1.0
 }

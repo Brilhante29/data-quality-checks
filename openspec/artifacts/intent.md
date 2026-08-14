@@ -29,5 +29,5 @@ Protects the input side of #21 by failing corrupted batches closed and partition
 
 ## Public Proof
 
-- Benchmark: invalid_row_detection_f1 = 1.0000; median throughput = 617,445.89 rows/s
+- Benchmark: invalid_row_detection_f1 = 1.0000; median throughput = 717,607.98 rows/s
 - Result path: `benchmarks/results/summary.json`

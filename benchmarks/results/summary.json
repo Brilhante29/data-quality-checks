@@ -3,12 +3,12 @@
     "metric":  "invalid_row_detection_f1",
     "value":  1,
     "unit":  "ratio",
-    "timestamp":  "2026-08-14T05:21:50.166Z",
+    "timestamp":  "2026-08-14T05:26:56.819Z",
     "command":  "docker run --rm -e IMAGE_ID=\u003cimage-id\u003e -v \u003crepo\u003e/benchmarks/results:/app/benchmarks/results data-quality-checks:benchmark benchmark --rows 100000 --output /app/benchmarks/results/run-N.json",
     "repeat":  3,
     "environment":  {
                         "container":  true,
-                        "image_id":  "sha256:8dfa9feaa462082f8ee28c1e5f0ff43c1a955663c5340c766c4045b48421e1e3",
+                        "image_id":  "sha256:c7c88eb12716707f65479627fc9a9b55fe60d86fbadd68e0194fb427176f27fc",
                         "implementation":  "CPython",
                         "machine":  "x86_64",
                         "pandera":  "0.32.1",
@@ -24,15 +24,15 @@
                     "recall":  1,
                     "rejected_rows_percent":  5,
                     "reason_exact_match_rate":  1,
-                    "throughput_rows_per_second":  617445.88531942875,
+                    "throughput_rows_per_second":  717607.97780211689,
                     "throughput_range_rows_per_second":  [
-                                                             547138.44159361662,
-                                                             891838.07448255783
+                                                             684860.81136726914,
+                                                             791482.53360816662
                                                          ],
-                    "duration_seconds":  0.16195751300256234,
+                    "duration_seconds":  0.13935185100126546,
                     "duration_range_seconds":  [
-                                                   0.11212797800544649,
-                                                   0.18276909900305327
+                                                   0.12634517598780803,
+                                                   0.14601507100451272
                                                ]
                 },
     "metrics":  {
@@ -45,8 +45,8 @@
                     "f1":  1,
                     "rejected_rows_percent":  5,
                     "reason_exact_match_rate":  1,
-                    "throughput_rows_per_second":  617445.88531942875,
-                    "duration_seconds":  0.16195751300256234,
+                    "throughput_rows_per_second":  717607.97780211689,
+                    "duration_seconds":  0.13935185100126546,
                     "reason_counts":  {
                                           "currency_allowed":  1000,
                                           "customer_required":  1000,
@@ -88,7 +88,7 @@
                      "command":  "docker run --rm data-quality-checks",
                      "environment":  {
                                          "container":  true,
-                                         "image_id":  "sha256:8dfa9feaa462082f8ee28c1e5f0ff43c1a955663c5340c766c4045b48421e1e3",
+                                         "image_id":  "sha256:c7c88eb12716707f65479627fc9a9b55fe60d86fbadd68e0194fb427176f27fc",
                                          "implementation":  "CPython",
                                          "machine":  "x86_64",
                                          "pandera":  "0.32.1",
@@ -100,7 +100,7 @@
                      "failures":  0,
                      "metric":  "invalid_row_detection_f1",
                      "metrics":  {
-                                     "duration_seconds":  0.18276909900305327,
+                                     "duration_seconds":  0.14601507100451272,
                                      "f1":  1.0,
                                      "false_negative":  0,
                                      "false_positive":  0,
@@ -115,7 +115,7 @@
                                      "reason_exact_match_rate":  1.0,
                                      "recall":  1.0,
                                      "rejected_rows_percent":  5.0,
-                                     "throughput_rows_per_second":  547138.4415936166,
+                                     "throughput_rows_per_second":  684860.8113672691,
                                      "true_negative":  95000,
                                      "true_positive":  5000
                                  },
@@ -145,15 +145,15 @@
                                },
                      "repeat":  1,
                      "summary":  {
-                                     "duration_seconds":  0.18276909900305327,
+                                     "duration_seconds":  0.14601507100451272,
                                      "f1":  1.0,
                                      "precision":  1.0,
                                      "reason_exact_match_rate":  1.0,
                                      "recall":  1.0,
                                      "rejected_rows_percent":  5.0,
-                                     "throughput_rows_per_second":  547138.4415936166
+                                     "throughput_rows_per_second":  684860.8113672691
                                  },
-                     "timestamp":  "2026-08-14T05:21:43.277536Z",
+                     "timestamp":  "2026-08-14T05:26:49.979697Z",
                      "unit":  "ratio",
                      "value":  1.0
                  },
@@ -161,7 +161,7 @@
                      "command":  "docker run --rm data-quality-checks",
                      "environment":  {
                                          "container":  true,
-                                         "image_id":  "sha256:8dfa9feaa462082f8ee28c1e5f0ff43c1a955663c5340c766c4045b48421e1e3",
+                                         "image_id":  "sha256:c7c88eb12716707f65479627fc9a9b55fe60d86fbadd68e0194fb427176f27fc",
                                          "implementation":  "CPython",
                                          "machine":  "x86_64",
                                          "pandera":  "0.32.1",
@@ -173,7 +173,7 @@
                      "failures":  0,
                      "metric":  "invalid_row_detection_f1",
                      "metrics":  {
-                                     "duration_seconds":  0.16195751300256234,
+                                     "duration_seconds":  0.13935185100126546,
                                      "f1":  1.0,
                                      "false_negative":  0,
                                      "false_positive":  0,
@@ -188,7 +188,7 @@
                                      "reason_exact_match_rate":  1.0,
                                      "recall":  1.0,
                                      "rejected_rows_percent":  5.0,
-                                     "throughput_rows_per_second":  617445.8853194288,
+                                     "throughput_rows_per_second":  717607.9778021169,
                                      "true_negative":  95000,
                                      "true_positive":  5000
                                  },
@@ -218,15 +218,15 @@
                                },
                      "repeat":  1,
                      "summary":  {
-                                     "duration_seconds":  0.16195751300256234,
+                                     "duration_seconds":  0.13935185100126546,
                                      "f1":  1.0,
                                      "precision":  1.0,
                                      "reason_exact_match_rate":  1.0,
                                      "recall":  1.0,
                                      "rejected_rows_percent":  5.0,
-                                     "throughput_rows_per_second":  617445.8853194288
+                                     "throughput_rows_per_second":  717607.9778021169
                                  },
-                     "timestamp":  "2026-08-14T05:21:46.236386Z",
+                     "timestamp":  "2026-08-14T05:26:52.913190Z",
                      "unit":  "ratio",
                      "value":  1.0
                  },
@@ -234,7 +234,7 @@
                      "command":  "docker run --rm data-quality-checks",
                      "environment":  {
                                          "container":  true,
-                                         "image_id":  "sha256:8dfa9feaa462082f8ee28c1e5f0ff43c1a955663c5340c766c4045b48421e1e3",
+                                         "image_id":  "sha256:c7c88eb12716707f65479627fc9a9b55fe60d86fbadd68e0194fb427176f27fc",
                                          "implementation":  "CPython",
                                          "machine":  "x86_64",
                                          "pandera":  "0.32.1",
@@ -246,7 +246,7 @@
                      "failures":  0,
                      "metric":  "invalid_row_detection_f1",
                      "metrics":  {
-                                     "duration_seconds":  0.1121279780054465,
+                                     "duration_seconds":  0.12634517598780803,
                                      "f1":  1.0,
                                      "false_negative":  0,
                                      "false_positive":  0,
@@ -261,7 +261,7 @@
                                      "reason_exact_match_rate":  1.0,
                                      "recall":  1.0,
                                      "rejected_rows_percent":  5.0,
-                                     "throughput_rows_per_second":  891838.0744825578,
+                                     "throughput_rows_per_second":  791482.5336081666,
                                      "true_negative":  95000,
                                      "true_positive":  5000
                                  },
@@ -291,15 +291,15 @@
                                },
                      "repeat":  1,
                      "summary":  {
-                                     "duration_seconds":  0.1121279780054465,
+                                     "duration_seconds":  0.12634517598780803,
                                      "f1":  1.0,
                                      "precision":  1.0,
                                      "reason_exact_match_rate":  1.0,
                                      "recall":  1.0,
                                      "rejected_rows_percent":  5.0,
-                                     "throughput_rows_per_second":  891838.0744825578
+                                     "throughput_rows_per_second":  791482.5336081666
                                  },
-                     "timestamp":  "2026-08-14T05:21:49.073326Z",
+                     "timestamp":  "2026-08-14T05:26:56.122790Z",
                      "unit":  "ratio",
                      "value":  1.0
                  }

@@ -11,10 +11,10 @@
   },
   "execution": {
     "command": "./tools/benchmark.ps1 -Rows 100000 -Repetitions 3",
-    "duration_seconds": 0.4568545900110621,
+    "duration_seconds": 0.4117120979935862,
     "exit_code": 0,
     "repeat": 3,
-    "started_at": "2026-08-14T05:21:43.277536Z"
+    "started_at": "2026-08-14T05:26:49.979697Z"
   },
   "metrics": [
     {
@@ -76,36 +76,36 @@
       "failures": 0,
       "name": "throughput_rows_per_second",
       "samples": [
-        547138.4415936166,
-        617445.8853194288,
-        891838.0744825578
+        684860.8113672691,
+        717607.9778021169,
+        791482.5336081666
       ],
       "summary": {
-        "max": 891838.0744825578,
-        "mean": 685474.1337985344,
-        "median": 617445.8853194288,
-        "min": 547138.4415936166
+        "max": 791482.5336081666,
+        "mean": 731317.1075925175,
+        "median": 717607.9778021169,
+        "min": 684860.8113672691
       },
       "unit": "rows_per_second",
-      "value": 617445.8853194288
+      "value": 717607.9778021169
     },
     {
       "direction": "lower_is_better",
       "failures": 0,
       "name": "duration_ms",
       "samples": [
-        182.76909900305327,
-        161.95751300256234,
-        112.1279780054465
+        146.01507100451272,
+        139.35185100126546,
+        126.34517598780803
       ],
       "summary": {
-        "max": 182.76909900305327,
-        "mean": 152.2848633370207,
-        "median": 161.95751300256234,
-        "min": 112.1279780054465
+        "max": 146.01507100451272,
+        "mean": 137.23736599786207,
+        "median": 139.35185100126546,
+        "min": 126.34517598780803
       },
       "unit": "milliseconds",
-      "value": 161.95751300256234
+      "value": 139.35185100126546
     },
     {
       "direction": "target",
@@ -149,16 +149,16 @@
     "artifact_digest": "sha256:4a8b27e80de654a18125291e2faedafe33b227c4abbcb7bf88ded42430b4356d",
     "clean_tree": true,
     "dependency_lock_digest": "sha256:586b8cce88bdc4a149414686f08b10f511cc7343e20b6d42558d1b2dceb52d77",
-    "image_digest": "sha256:8dfa9feaa462082f8ee28c1e5f0ff43c1a955663c5340c766c4045b48421e1e3",
+    "image_digest": "sha256:c7c88eb12716707f65479627fc9a9b55fe60d86fbadd68e0194fb427176f27fc",
     "image_ref": "data-quality-checks:benchmark",
     "producer": "local",
-    "source_commit": "4ba93edf687077aff5c31e06e1723939d40cdb5e"
+    "source_commit": "2ceee2e3dcbce6d8abeb33492113d02eb7dd1f20"
   },
-  "run_id": "ef136ef9-8cf7-40f5-808b-d06e9567f2fc",
+  "run_id": "313a11f0-44e2-411e-a3d6-18f05bc92209",
   "schema_version": 2,
   "workload": {
     "concurrency": 1,
-    "config_digest": "sha256:79a09efde6457fa161b2c09fa703d2e2848f774c76f699ef1a8fbf7589adfc52",
+    "config_digest": "sha256:9dfe542e0828d1e76fcbab35334474fcf7ff4a35681c1192f564da5ac7dd59de",
     "fixture_digest": "sha256:b19cc048d45ab0db862c0274fda33935d1207043072fa0edd1e1ada691716609",
     "measured_iterations": 100000,
     "version": "labeled-order-quality-gate-v1",
