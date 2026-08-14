@@ -65,6 +65,14 @@ $requiredFiles = @(
 )
 foreach ($file in $requiredFiles) { Require-File $file }
 
+$gitignorePath = Join-Path $root ".gitignore"
+if (Test-Path -LiteralPath $gitignorePath -PathType Leaf) {
+  $gitignoreText = Get-Content -Raw -LiteralPath $gitignorePath
+  if (-not $gitignoreText.Contains("*.egg-info/")) {
+    Add-Failure ".gitignore must exclude editable-install metadata (*.egg-info/)"
+  }
+}
+
 $manifestPath = Join-Path $root "project.yaml"
 $manifestPrimaryMetric = ""
 $manifestResultPath = ""
