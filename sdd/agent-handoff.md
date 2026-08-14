@@ -18,7 +18,7 @@ Finish #26 as the strict input-quality gate in the MLOps and Data Platform syste
 
 - Domain, fixture, oracle, optimized adapter, manifest contract, benchmark producer, CLI, tests, Docker, README, SDD, and references are implemented.
 - Baseline Docker verification passed 23 tests at 94.65% coverage before the manifest/V2 additions.
-- Publication requires a clean source commit, three canonical runs, final documentation alignment, push to `main`, and exact-head CI.
+- Canonical V2 evidence was generated from clean source `4ba93ed`; documentation and status are aligned. Push to `main` and exact-head CI remain.
 
 ## Docker Order
 

@@ -2,7 +2,7 @@
 
 ## Status
 
-Accepted for implementation; exact adapter runtime evidence pending.
+Accepted and verified by locked-wheel Docker tests, manifest schema validation, and V2 benchmark evidence.
 
 ## Decision
 

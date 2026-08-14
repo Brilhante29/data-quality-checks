@@ -22,4 +22,4 @@
 
 ## Remaining Risk
 
-The remaining risk is publication execution: rebuild the locked wheel image, run three canonical repetitions from a clean source commit, and confirm exact-head CI.
+Local verification passed with the locked wheel image, 25 tests, 94.99% coverage, three canonical repetitions, schema-valid V2 evidence, and zero benchmark failures. Exact-head CI remains the publication gate.

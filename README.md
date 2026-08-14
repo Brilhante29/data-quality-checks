@@ -20,8 +20,9 @@ The default path needs no network, secret, database, broker, cloud account, or p
 | Invalid-row F1 | 1.0000 | ratio | precision/recall balance against injected truth |
 | Rejected rows | 5.00 | percent | operational quarantine share |
 | Exact reason match | 1.0000 | ratio | rejected rows with every expected reason |
-| Full-gate throughput | 360,303.53 | rows/s | median across three runs |
-| Throughput range | 351,839.30-407,935.11 | rows/s | minimum-maximum across three runs |
+| Full-gate throughput | 617,445.89 | rows/s | median across three runs |
+| Throughput range | 547,138.44-891,838.07 | rows/s | minimum-maximum across three runs |
+| Full-gate duration | 161.96 | ms | median read-to-artifact duration |
 
 Evidence contains three complete 100,000-row runs on one pinned image, all raw outputs, median and range, image ID, and current committed evidence.
 
@@ -35,7 +36,7 @@ From a clean source commit, run:
 
 The command builds the locked wheel image, executes three runs, preserves raw V1 diagnostics, and writes contract-valid V2 publication evidence to `benchmarks/publication/data-quality-v2.json`. CI uses runner-temporary paths and uploads a separate smoke artifact.
 
-Image ID: sha256:eae434750a1ae276f8cf17ccf1806c7c8f44c51218e5f9437625ebc0c3017127.
+Image ID: sha256:8dfa9feaa462082f8ee28c1e5f0ff43c1a955663c5340c766c4045b48421e1e3. Application wheel: sha256:4a8b27e80de654a18125291e2faedafe33b227c4abbcb7bf88ded42430b4356d.
 Fixture SHA-256: b19cc048d45ab0db862c0274fda33935d1207043072fa0edd1e1ada691716609.
 
 ## Contract And Policy

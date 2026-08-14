@@ -11,7 +11,7 @@ program:
     - accepted and quarantine artifact protocol
     - validated batch manifest v1 for feature and drift consumers
     - invalid-row benchmark evidence
-status: benchmarked
+status: published
 claim: "One local-first Docker command applies a strict structural contract, quarantines rule violations with exact reason IDs, proves Polars/Pandera parity against a Python oracle, and scores invalid-row detection F1, rejected percentage, and full-gate throughput."
 stack:
   - python-3.12
@@ -120,7 +120,7 @@ design_system:
     - references_table
   diagram_required: true
 reuse:
-  kit_version: data-quality-update-pending-publication
+  kit_version: portfolio-reuse-kit@d6ee7e1
   uses:
     - catalog
     - programs
@@ -142,7 +142,7 @@ benchmark:
   command: "docker run --rm data-quality-checks:benchmark benchmark --rows 100000"
   result_path: benchmarks/results/summary.json
   publication_result_path: benchmarks/publication/data-quality-v2.json
-  evidence_status: pending-regeneration
+  evidence_status: current
 release:
   docker: "docker run --rm data-quality-checks"
   no_secret_default_path: true

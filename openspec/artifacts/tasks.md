@@ -15,11 +15,11 @@
 - [x] Record external references in `REFERENCES.md`.
 - [x] Add validated-batch contract and locked wheel build.
 - [x] Add project-owned V2 benchmark producer and isolated CI smoke path.
-- [ ] Commit regenerated benchmark JSON and the matching README number.
+- [x] Commit regenerated benchmark JSON and the matching README number.
 
 ## Publication
 
-- [ ] Validate project.
+- [x] Validate project locally.
 - [ ] Confirm published CI is green.
 - [ ] Confirm article uses committed benchmark result.
 - [ ] Confirm `voice-check.md` verdict is aligned or intentionally overridden.

@@ -1,0 +1,167 @@
+{
+  "benchmark_id": "labeled-order-quality-gate",
+  "comparability_key": "data-quality-checks:labeled-orders-v1:rows-100000:seed-42:pandera-0_32_1:polars-1_42_1",
+  "environment": {
+    "architecture": "x86_64",
+    "container_platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.41",
+    "hardware_class": "windows-docker-desktop",
+    "pandera": "0.32.1",
+    "polars": "1.42.1",
+    "runtime": "python-3.12.13"
+  },
+  "execution": {
+    "command": "./tools/benchmark.ps1 -Rows 100000 -Repetitions 3",
+    "duration_seconds": 0.4568545900110621,
+    "exit_code": 0,
+    "repeat": 3,
+    "started_at": "2026-08-14T05:21:43.277536Z"
+  },
+  "metrics": [
+    {
+      "direction": "higher_is_better",
+      "failures": 0,
+      "name": "invalid_row_detection_f1",
+      "samples": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "summary": {
+        "max": 1.0,
+        "mean": 1.0,
+        "median": 1.0,
+        "min": 1.0
+      },
+      "unit": "ratio",
+      "value": 1.0
+    },
+    {
+      "direction": "target",
+      "failures": 0,
+      "name": "rejected_rows_percent",
+      "samples": [
+        5.0,
+        5.0,
+        5.0
+      ],
+      "summary": {
+        "max": 5.0,
+        "mean": 5.0,
+        "median": 5.0,
+        "min": 5.0
+      },
+      "unit": "percent",
+      "value": 5.0
+    },
+    {
+      "direction": "higher_is_better",
+      "failures": 0,
+      "name": "reason_exact_match_rate",
+      "samples": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "summary": {
+        "max": 1.0,
+        "mean": 1.0,
+        "median": 1.0,
+        "min": 1.0
+      },
+      "unit": "ratio",
+      "value": 1.0
+    },
+    {
+      "direction": "higher_is_better",
+      "failures": 0,
+      "name": "throughput_rows_per_second",
+      "samples": [
+        547138.4415936166,
+        617445.8853194288,
+        891838.0744825578
+      ],
+      "summary": {
+        "max": 891838.0744825578,
+        "mean": 685474.1337985344,
+        "median": 617445.8853194288,
+        "min": 547138.4415936166
+      },
+      "unit": "rows_per_second",
+      "value": 617445.8853194288
+    },
+    {
+      "direction": "lower_is_better",
+      "failures": 0,
+      "name": "duration_ms",
+      "samples": [
+        182.76909900305327,
+        161.95751300256234,
+        112.1279780054465
+      ],
+      "summary": {
+        "max": 182.76909900305327,
+        "mean": 152.2848633370207,
+        "median": 161.95751300256234,
+        "min": 112.1279780054465
+      },
+      "unit": "milliseconds",
+      "value": 161.95751300256234
+    },
+    {
+      "direction": "target",
+      "failures": 0,
+      "name": "false_positive_count",
+      "samples": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "summary": {
+        "max": 0.0,
+        "mean": 0.0,
+        "median": 0.0,
+        "min": 0.0
+      },
+      "unit": "count",
+      "value": 0.0
+    },
+    {
+      "direction": "target",
+      "failures": 0,
+      "name": "false_negative_count",
+      "samples": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "summary": {
+        "max": 0.0,
+        "mean": 0.0,
+        "median": 0.0,
+        "min": 0.0
+      },
+      "unit": "count",
+      "value": 0.0
+    }
+  ],
+  "project": "data-quality-checks",
+  "provenance": {
+    "artifact_digest": "sha256:4a8b27e80de654a18125291e2faedafe33b227c4abbcb7bf88ded42430b4356d",
+    "clean_tree": true,
+    "dependency_lock_digest": "sha256:586b8cce88bdc4a149414686f08b10f511cc7343e20b6d42558d1b2dceb52d77",
+    "image_digest": "sha256:8dfa9feaa462082f8ee28c1e5f0ff43c1a955663c5340c766c4045b48421e1e3",
+    "image_ref": "data-quality-checks:benchmark",
+    "producer": "local",
+    "source_commit": "4ba93edf687077aff5c31e06e1723939d40cdb5e"
+  },
+  "run_id": "ef136ef9-8cf7-40f5-808b-d06e9567f2fc",
+  "schema_version": 2,
+  "workload": {
+    "concurrency": 1,
+    "config_digest": "sha256:79a09efde6457fa161b2c09fa703d2e2848f774c76f699ef1a8fbf7589adfc52",
+    "fixture_digest": "sha256:b19cc048d45ab0db862c0274fda33935d1207043072fa0edd1e1ada691716609",
+    "measured_iterations": 100000,
+    "version": "labeled-order-quality-gate-v1",
+    "warmup_iterations": 1000
+  }
+}

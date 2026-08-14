@@ -27,15 +27,16 @@ Precision, recall, confusion counts, rejected rows percent, exact reason match, 
 
 ## Verified Baseline
 
-Executed on 2026-07-16 using image ID sha256:eae434750a1ae276f8cf17ccf1806c7c8f44c51218e5f9437625ebc0c3017127:
+Executed on 2026-08-14 from source `4ba93edf687077aff5c31e06e1723939d40cdb5e` using image ID sha256:8dfa9feaa462082f8ee28c1e5f0ff43c1a955663c5340c766c4045b48421e1e3:
 
 - 3 runs, 100,000 rows each, fixture seed 42.
 - invalid_row_detection_f1: 1.0000; precision 1.0000; recall 1.0000.
 - Rejected rows: 5.00%; exact reason match: 1.0000.
-- Throughput median: 360,303.53 rows/s; range: 351,839.30-407,935.11 rows/s.
-- Duration median: 0.277544 s; range: 0.245137-0.284221 s.
+- Throughput median: 617,445.89 rows/s; range: 547,138.44-891,838.07 rows/s.
+- Duration median: 0.161958 s; range: 0.112128-0.182769 s.
 - All runs reported zero failures and identical fixture, accepted-output, and quarantine-output hashes.
 - Raw files: benchmarks/results/run-1.json, run-2.json, run-3.json.
+- V2 publication artifact: benchmarks/publication/data-quality-v2.json; zero failures, false positives, and false negatives.
 
 ## Why F1
 

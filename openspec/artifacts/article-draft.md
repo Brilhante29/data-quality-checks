@@ -1,10 +1,10 @@
-# #26 data-quality-checks: invalid_row_detection_f1 = pending
+# #26 data-quality-checks: F1 1.0000 at 617,445.89 rows/s
 
 One local-first Docker command applies a strict structural contract, quarantines rule violations with exact reason IDs, proves Polars/Pandera parity against a Python oracle, and scores invalid-row detection F1, rejected percentage, and full-gate throughput.
 
 This repository belongs to the MLOps and Data Platform program. Its job is narrow: prove the measurable claim through the selected component pack before adding unrelated infrastructure or features.
 
-The benchmark is the proof. invalid_row_detection_f1 = pending.  The result is stored in `benchmarks/results/summary.json` and can be reproduced from the Docker/local path.
+The benchmark is the proof: invalid-row detection F1 is 1.0000, median throughput is 617,445.89 rows/s, and false positives and false negatives are zero. The contract-valid result is stored in `benchmarks/publication/data-quality-v2.json` and is reproduced by `./tools/benchmark.ps1`.
 
 The important architecture decision is pipeline. The dominant force is ordered gating: load, validate structure, evaluate row policy, partition outputs, score against independent truth, and emit benchmark evidence.
 
