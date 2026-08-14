@@ -47,13 +47,27 @@ def metric(
     }
 
 
+def effective_workload(
+    template: dict[str, Any], rows: int, repetitions: int
+) -> dict[str, Any]:
+    effective = dict(template)
+    effective["measured_rows_per_repetition"] = rows
+    effective["repetitions"] = repetitions
+    return effective
+
+
 def build(args: argparse.Namespace) -> dict[str, Any]:
     root = Path(args.root).resolve()
     summary = json.loads(Path(args.summary).read_text(encoding="utf-8"))
-    workload = json.loads(git_blob(root, args.source_commit, args.workload_ref))
+    workload_template = json.loads(
+        git_blob(root, args.source_commit, args.workload_ref)
+    )
+    workload = effective_workload(workload_template, args.rows, args.repetitions)
     runs = summary["runs"]
-    if len(runs) != workload["repetitions"]:
+    if len(runs) != args.repetitions:
         raise ValueError("raw run count differs from workload repetitions")
+    if any(int(run["environment"]["rows"]) != args.rows for run in runs):
+        raise ValueError("raw run row count differs from executed rows")
     failures = sum(int(run["failures"]) for run in runs)
     if failures:
         raise ValueError(f"benchmark runs contain {failures} failure(s)")
@@ -83,9 +97,11 @@ def build(args: argparse.Namespace) -> dict[str, Any]:
         "workload": {
             "version": "labeled-order-quality-gate-v1",
             "fixture_digest": fixture_digest,
-            "config_digest": digest(git_blob(root, args.source_commit, args.workload_ref)),
+            "config_digest": digest(
+                json.dumps(workload, sort_keys=True, separators=(",", ":")).encode()
+            ),
             "warmup_iterations": workload["warmup_rows"],
-            "measured_iterations": workload["measured_rows_per_repetition"],
+            "measured_iterations": args.rows,
             "concurrency": workload["concurrency"],
         },
         "metrics": metrics,
@@ -117,7 +133,7 @@ def build(args: argparse.Namespace) -> dict[str, Any]:
         },
         "comparability_key": (
             "data-quality-checks:labeled-orders-v1:"
-            f"rows-{workload['measured_rows_per_repetition']}:seed-42:"
+            f"rows-{args.rows}:seed-42:"
             "pandera-0_32_1:polars-1_42_1"
         ),
     }
@@ -140,6 +156,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--image-digest", required=True)
     parser.add_argument("--artifact-digest", required=True)
     parser.add_argument("--hardware-class", required=True)
+    parser.add_argument("--rows", type=int, required=True)
+    parser.add_argument("--repetitions", type=int, required=True)
     parser.add_argument("--producer", choices=("local", "github-actions", "other-ci"), required=True)
     parser.add_argument("--workload-ref", default="benchmarks/workload.json")
     parser.add_argument("--lock-ref", default="constraints.lock")

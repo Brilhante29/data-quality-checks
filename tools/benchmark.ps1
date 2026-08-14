@@ -88,6 +88,8 @@ python (Join-Path $PSScriptRoot "build_v2_evidence.py") `
   --image-digest $imageDigest `
   --artifact-digest $artifactDigest `
   --hardware-class $HardwareClass `
+  --rows $Rows `
+  --repetitions $Repetitions `
   --producer $producer `
   --command $command
 if ($LASTEXITCODE -ne 0) { throw "V2 evidence generation failed" }

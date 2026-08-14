@@ -153,6 +153,14 @@ if ($manifestPublicationResultPath -ne "") {
       if ($publicationResult.workload.measured_iterations -le $publicationResult.execution.repeat) {
         Add-Failure "V2 workload size must be distinct from independent repetitions"
       }
+      $workloadConfigPath = Join-Path $root "benchmarks/workload.json"
+      $workloadConfig = Get-Content -Raw -LiteralPath $workloadConfigPath | ConvertFrom-Json
+      if ($publicationResult.workload.measured_iterations -ne $workloadConfig.measured_rows_per_repetition) {
+        Add-Failure "Canonical V2 measured_iterations must match benchmarks/workload.json"
+      }
+      if ($publicationResult.execution.repeat -ne $workloadConfig.repetitions) {
+        Add-Failure "Canonical V2 repeat must match benchmarks/workload.json"
+      }
       foreach ($metric in @($publicationResult.metrics)) {
         if (@($metric.samples).Count -ne $publicationResult.execution.repeat) {
           Add-Failure "V2 metric $($metric.name) must retain one sample per repetition"
