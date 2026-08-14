@@ -214,7 +214,7 @@ if (Test-Path -LiteralPath $workflowPath -PathType Leaf) {
   if ($workflowText.Contains("-AllowPendingEvidence")) {
     Add-Failure "CI must not allow pending publication evidence"
   }
-  foreach ($literal in @('RUNNER_TEMP', 'actions/upload-artifact@', './tools/benchmark.ps1')) {
+  foreach ($literal in @('fetch-depth: 0', 'RUNNER_TEMP', 'actions/upload-artifact@', './tools/benchmark.ps1')) {
     if (-not $workflowText.Contains($literal)) {
       Add-Failure "CI is missing isolated V2 smoke evidence guard: $literal"
     }
