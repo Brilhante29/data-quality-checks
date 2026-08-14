@@ -11,14 +11,15 @@
 - README.md
 - sdd/spec.md
 - sdd/technical-decision.md
-- Benchmark result: `benchmarks/results/summary.json`
+- Diagnostic result: `benchmarks/results/summary.json`
+- Publication result: `benchmarks/publication/data-quality-v2.json`
 
 ## Checks
 
 - Component pack selected: `mlops-data-platform`
-- Benchmark line: invalid_row_detection_f1 = pending
+- Benchmark line: `invalid_row_detection_f1 = 1.0000`
 - Voice verdict: aligned
 
 ## Remaining Risk
 
-The generated plan is a starting point. Re-run this tool or edit the artifacts when code, benchmark, or architecture decisions change.
+The remaining risk is publication execution: rebuild the locked wheel image, run three canonical repetitions from a clean source commit, and confirm exact-head CI.

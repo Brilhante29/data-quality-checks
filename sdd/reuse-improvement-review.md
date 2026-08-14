@@ -12,6 +12,7 @@ The old kit catalog described #26 with Pandera, DuckDB, Polars, and rejected per
 - Updated Python profile with structural/row separation and LazyFrame depth rule.
 - Updated #26 catalog stack and primary metric.
 - Added kit validator checks for every new reusable artifact.
+- Added a local `validated-batch-manifest-v1` contract now that #23 and #22 are named consumers; upstreaming waits for one consumer implementation to verify the boundary.
 
 ## Kept Local
 
@@ -22,7 +23,7 @@ Order columns, seven rules, thresholds, fixture seeds, five defect families, out
 | Question | Answer |
 |---|---|
 | Why not add a generic rule DSL? | One project has not justified maintaining a second language; canonical Python policy plus parity is simpler. |
-| Why is no report schema added? | The shared benchmark schema already governs public evidence; add a quality-report contract only when a second consumer needs it. |
+| Why add a report schema now? | #23 and #22 are concrete consumers. The manifest shares artifact identity and quality outcome without sharing order-policy code. |
 | Did a desired skill disappear? | No. DuckDB remains available for #23 or analytics where SQL behavior is measured. |
 | Is the oracle overengineering? | No. It catches semantic drift in the optimized adapter and is exercised as LSP proof. |
 
@@ -34,4 +35,4 @@ Order columns, seven rules, thresholds, fixture seeds, five defect families, out
 
 ## Verdict
 
-`patch-required-and-applied` for planning and static validation. Runtime evidence and publication remain pending.
+`patch-required-and-applied` locally; upstream the manifest schema to the kit after #23 proves it can consume the contract without project-specific imports.

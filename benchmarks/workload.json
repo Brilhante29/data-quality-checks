@@ -1,0 +1,9 @@
+{
+  "benchmark_id": "labeled-order-quality-gate",
+  "fixture_seed": 42,
+  "warmup_rows": 1000,
+  "measured_rows_per_repetition": 100000,
+  "repetitions": 3,
+  "concurrency": 1,
+  "measured_boundary": "read+schema+rules+accepted/quarantine writes"
+}

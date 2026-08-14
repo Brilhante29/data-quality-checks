@@ -6,13 +6,14 @@
 - Pandera 0.32.1 with Polars integration.
 - Polars 1.42.1.
 - Python `csv` and `Decimal` reference engine.
+- JSON Schema 2020-12 for the validated-batch and benchmark evidence boundaries.
 - Docker non-root UID 10001.
 
 ## Library Roles
 
 Pandera validates exact eager DataFrame columns and types. Polars executes native vectorized predicates, partitions accepted/quarantine rows, and writes both outputs. Standard-library code owns the oracle and exact-money semantics.
 
-Direct dependencies are exact; transitive freeze remains a Docker release gate.
+Direct dependencies and the transitive environment are pinned in `constraints.lock`. The pinned build stage creates a wheelhouse; the runtime stage installs offline from those wheels and retains the application wheel for provenance.
 
 ## Rejections
 
@@ -36,6 +37,6 @@ Fixture generation and truth persistence are setup. The timed path includes CSV 
 
 Input cannot equal either output; outputs cannot collide. The default path has no network, credentials, database, broker, or external data. Failure writes JSON and exits nonzero. No high-cardinality monitoring labels are introduced.
 
-## Docker Verification Pending
+## Publication Verification
 
-The exact Pandera 0.32.1/Polars 1.42.1 API, parity test, Ruff, coverage, transitive freeze, and three full benchmark runs must execute in the image before publication.
+The exact Pandera 0.32.1/Polars 1.42.1 API, manifest schema, parity test, Ruff, coverage, locked wheel installation, and three full benchmark runs execute in the image before publication.

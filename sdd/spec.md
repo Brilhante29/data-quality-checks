@@ -24,6 +24,7 @@ Unreadable structure, scalar types, or duplicate row identifiers fail the batch.
 
 - Accepted CSV with unchanged source columns.
 - Quarantine CSV with source columns plus ordered `_reasons`.
+- Validated-batch manifest with contract identity, row counts, artifact paths, and SHA-256 digests for downstream feature/drift consumers.
 - Benchmark JSON with confusion counts, F1, rejected percentage, reason exact match, throughput, hashes, versions, environment, and failures.
 - Nonzero failure JSON for exceptions.
 
@@ -39,6 +40,7 @@ Seed 42 creates deterministic valid orders and injects one invalid row every 20 
 - Reference/optimized engine parity.
 - Accepted and quarantine artifacts.
 - Reproducible 100,000-row benchmark.
+- Versioned artifact interoperability with #23 and #22.
 
 ## Out Of Scope
 

@@ -5,8 +5,9 @@
 - Metric: `invalid_row_detection_f1`
 - Unit: ratio
 - Command: `docker run --rm data-quality-checks:benchmark benchmark --rows 100000`
-- Result: `benchmarks/results/summary.json`
-- Evidence: current; three immutable Docker runs plus raw outputs
+- Diagnostic result: `benchmarks/results/summary.json`
+- Publication result: `benchmarks/publication/data-quality-v2.json`
+- Evidence: three immutable Docker runs plus V2 provenance
 
 ## Secondary
 
@@ -20,6 +21,8 @@ Precision, recall, confusion counts, rejected rows percent, exact reason match, 
 - One 1,000-row full warm-up.
 - Timed path includes read, schema, rules, partition, and writes.
 - Three complete runs on one image; publish median/range and preserve raw outputs and failures.
+- V2 records `workload.measured_iterations=100000` and `execution.repeat=3`; each aggregate metric retains three samples.
+- Provenance binds the source commit, image, application wheel, constraints lock, workload config, and generated fixture.
 - Docker parity test compares all 1,000 oracle/optimized outcomes before benchmark.
 
 ## Verified Baseline
@@ -40,4 +43,4 @@ The 5% rejected ratio is fixture prevalence. F1 proves the gate found injected d
 
 ## Gates
 
-All current gates passed: no missing truth, duplicate row IDs, unaccounted rows, changed fixture hash, parity mismatch, hidden failure, unrecorded image ID, or README number without current summary.
+Publication regeneration must pass: no missing truth, duplicate row IDs, unaccounted rows, changed fixture hash, parity mismatch, hidden failure, unrecorded image/wheel/lock digest, or README number without current evidence.

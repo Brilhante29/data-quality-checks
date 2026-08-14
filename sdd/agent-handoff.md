@@ -16,28 +16,21 @@ Finish #26 as the strict input-quality gate in the MLOps and Data Platform syste
 
 ## Current State
 
-- Domain, fixture, oracle, optimized adapter, benchmark, CLI, tests, Docker, README, SDD, and references are staged.
-- Host: 19 tests pass; Pandera/Polars parity and benchmark tests are correctly skipped because those packages are unavailable.
-- Python 3.12 syntax passes.
-- Kit: data-quality skills/docs, component pack, catalog, and Python profile are staged and validated.
-- Docker, exact adapter APIs, coverage, transitive freeze, three runs, Desktop sync, GitHub publication, and CI remain pending.
+- Domain, fixture, oracle, optimized adapter, manifest contract, benchmark producer, CLI, tests, Docker, README, SDD, and references are implemented.
+- Baseline Docker verification passed 23 tests at 94.65% coverage before the manifest/V2 additions.
+- Publication requires a clean source commit, three canonical runs, final documentation alignment, push to `main`, and exact-head CI.
 
 ## Docker Order
 
-1. Build and record image ID/size.
-2. Freeze transitive dependencies and rebuild.
-3. Run Ruff and all tests; confirm no skips in Polars/Pandera modules.
-4. Require at least 90% focused coverage.
-5. Run 1,000-row oracle/optimized parity.
-6. Run one short benchmark and inspect accepted/quarantine outputs.
-7. Run three 100,000-row benchmarks on one image.
-8. Aggregate without dropping failures; update README and evidence status.
-9. Run strict validator.
-10. Publish kit first, synchronize its exact commit, publish #26, and confirm green CI.
+1. Run Ruff and all tests in the rebuilt locked-wheel image.
+2. Commit the clean benchmark source.
+3. Run `./tools/benchmark.ps1` for three 100,000-row repetitions.
+4. Inspect V2 workload/repetition semantics, samples, failures, and digests.
+5. Align README numbers and mark evidence current.
+6. Run strict validation, publish to `main`, and confirm exact-head CI.
 
 ## Risks
 
-- Pandera/Polars current API has not run locally.
 - Float total consistency in Polars must match Decimal oracle at the 0.01 boundary.
-- Transitive dependencies are not frozen.
+- The manifest contract must be consumed by #23 before it is promoted into the reusable kit.
 - The order fixture is engineering proof, not a universal business contract.

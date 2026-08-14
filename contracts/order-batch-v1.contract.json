@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "contract_id": "order-batch-v1",
+  "record_format": "csv",
+  "columns": [
+    { "name": "row_id", "type": "string", "nullable": false, "role": "row_key" },
+    { "name": "order_id", "type": "string", "nullable": false, "role": "entity_key" },
+    { "name": "customer_id", "type": "string", "nullable": false, "role": "join_key" },
+    { "name": "quantity", "type": "integer", "nullable": false, "role": "feature" },
+    { "name": "unit_price", "type": "decimal", "nullable": false, "role": "feature" },
+    { "name": "total_amount", "type": "decimal", "nullable": false, "role": "feature" },
+    { "name": "currency", "type": "string", "nullable": false, "role": "dimension" },
+    { "name": "status", "type": "string", "nullable": false, "role": "dimension" }
+  ],
+  "quality_rules": [
+    "identifiers_required",
+    "customer_required",
+    "quantity_range",
+    "unit_price_range",
+    "currency_allowed",
+    "status_allowed",
+    "total_consistent"
+  ]
+}

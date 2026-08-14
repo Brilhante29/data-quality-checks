@@ -1,6 +1,6 @@
 # #26 data-quality-checks
 
-**Benchmark:** `invalid_row_detection_f1` is `1.0000` across three immutable Docker runs; host oracle tests are development feedback, not publication evidence.
+**Benchmark:** `invalid_row_detection_f1` is `1.0000` across three immutable Docker runs; the V2 artifact distinguishes 100,000 measured rows per repetition from three independent repetitions.
 
 **Proves:** a data gate can fail structural corruption closed, quarantine readable rule violations without losing rows, match an independent reference engine, and measure detection quality rather than merely report how dirty its fixture is.
 
@@ -27,18 +27,13 @@ Evidence contains three complete 100,000-row runs on one pinned image, all raw o
 
 ### Reproduce The Published Evidence
 
-On PowerShell, after building the image, run the same command three times with N set to 1, 2, and 3, then aggregate the raw outputs:
+From a clean source commit, run:
 
 ```powershell
-$imageId = docker image inspect data-quality-checks:benchmark --format '{{.Id}}'
-$resultDir = (Get-Location).Path + '\benchmarks\results'
-1..3 | ForEach-Object {
-  docker run --rm -e "IMAGE_ID=$imageId" --mount "type=bind,source=$resultDir,target=/app/benchmarks/results" data-quality-checks:benchmark benchmark --rows 100000 --output "/app/benchmarks/results/run-$_.json"
-}
-.\tools\aggregate-benchmark.ps1
+./tools/benchmark.ps1
 ```
 
-The committed aggregate is benchmarks/results/summary.json; the three raw outputs are run-1.json, run-2.json, and run-3.json.
+The command builds the locked wheel image, executes three runs, preserves raw V1 diagnostics, and writes contract-valid V2 publication evidence to `benchmarks/publication/data-quality-v2.json`. CI uses runner-temporary paths and uploads a separate smoke artifact.
 
 Image ID: sha256:eae434750a1ae276f8cf17ccf1806c7c8f44c51218e5f9437625ebc0c3017127.
 Fixture SHA-256: b19cc048d45ab0db862c0274fda33935d1207043072fa0edd1e1ada691716609.
@@ -81,8 +76,10 @@ This is concrete LSP evidence. The optimized adapter cannot silently change poli
 ## Gate A File
 
 ```bash
-data-quality-checks gate orders.csv   --accepted output/accepted.csv   --quarantine output/quarantine.csv
+data-quality-checks gate orders.csv --accepted output/accepted.csv --quarantine output/quarantine.csv --manifest output/validated-batch.json
 ```
+
+The manifest follows `contracts/validated-batch-manifest-v1.schema.json`, binds the accepted and quarantine files by SHA-256, and identifies `contracts/order-batch-v1.contract.json`. #23 and #22 consume the versioned artifact contract, never this repository's Python modules.
 
 ## Architecture
 
@@ -104,7 +101,7 @@ Pipeline is the primary architecture because transition order is the main correc
 
 | Repository | Responsibility | Connection |
 |---|---|---|
-| #26 `data-quality-checks` | gate raw batches and preserve quarantine | accepted dataset + quality evidence |
+| #26 `data-quality-checks` | gate raw batches and preserve quarantine | accepted dataset + validated-batch manifest |
 | #21 `mlops-end2end` | train, register, promote, and serve | consumes only validated training data |
 | #22 `model-drift-detector` | monitor deployed feature/prediction batches | detects distribution change after serving |
 | #23 `feature-store-lite` | serve governed features | shares typed feature and freshness expectations |
@@ -121,6 +118,7 @@ DuckDB is excellent when SQL, joins, or persistent analytics are the problem; no
 - Structural corruption and row-level quarantine are different outcomes.
 - Rules, fixture truth, reference behavior, optimized parity, scoring, and output protection have focused tests.
 - Docker uses a non-root user and a Python base pinned by tag and OCI digest.
+- Runtime and development dependencies are constrained transitively; the image installs only from the wheelhouse built in its pinned build stage.
 - OpenSpec records architecture self-challenge, stack rejection, reuse delta, benchmark questions, and release gates.
 - Evidence is current for the pinned image and the three completed runs; performance is a local baseline, not a cross-machine guarantee.
 

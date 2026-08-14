@@ -10,6 +10,7 @@ from pathlib import Path
 
 from data_quality.application import execute_gate
 from data_quality.benchmark import run_benchmark
+from data_quality.manifest import write_validated_batch_manifest
 from data_quality.polars_engine import PolarsPanderaQualityEngine
 
 
@@ -34,6 +35,14 @@ def build_parser() -> argparse.ArgumentParser:
     gate.add_argument("input", type=Path)
     gate.add_argument("--accepted", type=Path, required=True)
     gate.add_argument("--quarantine", type=Path, required=True)
+    gate.add_argument("--manifest", type=Path, required=True)
+    gate.add_argument("--dataset-id", default="orders")
+    gate.add_argument("--dataset-version", default="order-batch-v1")
+    gate.add_argument(
+        "--contract",
+        type=Path,
+        default=Path("contracts/order-batch-v1.contract.json"),
+    )
     return parser
 
 
@@ -51,12 +60,16 @@ def run(argv: Sequence[str] | None = None) -> int:
             args.accepted,
             args.quarantine,
         )
-        result = {
-            "total_rows": outcome.total_rows,
-            "accepted_rows": outcome.accepted_rows,
-            "rejected_rows": len(outcome.rejections),
-            "reason_counts": dict(outcome.reason_counts),
-        }
+        result = write_validated_batch_manifest(
+            manifest_path=args.manifest,
+            dataset_id=args.dataset_id,
+            dataset_version=args.dataset_version,
+            contract_path=args.contract,
+            input_path=args.input,
+            accepted_path=args.accepted,
+            quarantine_path=args.quarantine,
+            outcome=outcome,
+        )
     print(json.dumps(result, indent=2, sort_keys=True))
     return 0
 

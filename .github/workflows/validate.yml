@@ -19,11 +19,11 @@ jobs:
         with:
           python-version: "3.12"
       - name: Install package
-        run: pip install -e .
+        run: pip install -c constraints.lock -e ".[dev]"
 
       - name: Validate repository contract
         shell: pwsh
-        run: ./tools/validate-project.ps1 -SkipDocker -AllowPendingEvidence
+        run: ./tools/validate-project.ps1 -SkipDocker
 
       - name: Build image
         run: docker build -t data-quality-checks .
@@ -34,16 +34,12 @@ jobs:
       - name: Test adapters, parity, and coverage
         run: docker run --rm --entrypoint python data-quality-checks -m pytest --cov=data_quality --cov-report=term-missing --cov-fail-under=90
 
-      - name: Run short container benchmark
-        run: |
-          mkdir -p benchmarks/results
-          docker run --rm --user "$(id -u):$(id -g)"             -v "${{ github.workspace }}/benchmarks/results:/app/benchmarks/results"             data-quality-checks benchmark --rows 1000             --output /app/benchmarks/results/ci.json
-
-      - name: Validate benchmark JSON
-        run: python -m json.tool benchmarks/results/ci.json > /dev/null
+      - name: Run isolated V2 smoke benchmark
+        shell: pwsh
+        run: ./tools/benchmark.ps1 -Rows 1000 -Repetitions 3 -HardwareClass github-actions-linux -ResultsDirectory "$env:RUNNER_TEMP/data-quality-results" -OutputPath "$env:RUNNER_TEMP/data-quality-v2.json"
 
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
-          name: data-quality-checks-ci-benchmark
-          path: benchmarks/results/ci.json
+          name: data-quality-checks-ci-${{ github.sha }}
+          path: ${{ runner.temp }}/data-quality-v2.json
           if-no-files-found: error

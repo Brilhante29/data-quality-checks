@@ -24,11 +24,12 @@ Pandera/Polars and CSV adapters depend on domain rule IDs, outcomes, and the Qua
 - standard-library reference engine
 - Pandera structural schema
 - Polars vectorized rule and partition adapter
+- JSON Schema validated-batch artifact boundary
 - benchmark scoring and CLI
 
 ## Library Policy
 
-Pandera owns exact structural DataFrame validation, Polars owns vectorized row predicates and output partitioning, and the standard-library reference engine is the LSP oracle. DuckDB and Great Expectations are rejected because SQL persistence and suite operations are not measured.
+Pandera owns exact structural DataFrame validation, Polars owns vectorized row predicates and output partitioning, JSON Schema owns the cross-repository artifact boundary, and the standard-library reference engine is the LSP oracle. DuckDB and Great Expectations are rejected because SQL persistence and suite operations are not measured.
 
 ## Principle Check
 
